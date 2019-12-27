@@ -1,19 +1,19 @@
-import os
+from os import system
+from sys import argv, exit
 
 try:
-    from cx_Freeze import setup, Executable
+    arquivo = argv[1]
 except:
-    print('Installing Lib...')
-    os.system('pip3 install cx_Freeze')
+    print('Erro!')
+    print(argv[0], 'arquivo.py')
+    exit()
 
-py = input('File Script: ')
-name = input('Name Executable: ')
-version = float(input('Version Script: '))
-descript = input('Description File: ')
+try:
+    import PyInstaller
+except:
+    print('Instalando Requisitos...')
+    system('pip3 install PyInstaller')
 
-setup (
-    name = name,
-    version= version,
-    description= descript,
-    executables = [Executable(py)]
-)
+print('Compilando [{0}]'.format(arquivo))
+cmd = ('pyinstaller '+arquivo)
+system(cmd)
